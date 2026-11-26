@@ -1,0 +1,7 @@
+{
+    "name": "hp/rupe",
+    "require": {
+        "chillerlan/php-qrcode": "^6.0",
+        "dompdf/dompdf": "^3.1"
+    }
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba de Captcha Local</title>
+    <!-- 1. Script oficial de reCAPTCHA -->
+    <script src="https://google.com" async defer></script>
+    <!-- Estilos rápidos para centrarlo -->
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5; font-family: sans-serif;}
+        .box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;}
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>Verificación de reCAPTCHA v2</h3>
+        <p>Si ves la casilla abajo, tu navegador y el script están perfectos:</p>
+        
+        <!-- 2. CLAVE DE PRUEBAS DE GOOGLE (Funciona en cualquier localhost) -->
+        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqy08wEwevY1QNclqq3MTSp"></div>
+    </div>
+
+</body>
+</html>
