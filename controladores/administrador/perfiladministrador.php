@@ -1,7 +1,7 @@
 <?php
 
 
-require_once __DIR__ . "/../modelos/perfil.php";
+require_once __DIR__ . "/../../modelos/perfil.php";
 
 
 class PerfiladministradorControlador {
@@ -17,7 +17,7 @@ class PerfiladministradorControlador {
     public function Inicio() {
         //Valida sesión y rol
         if (!isset($_SESSION['id_usuario']) || ($_SESSION['id_roles'] != 1 && $_SESSION['id_roles'] !== 'administrador')) {
-            header("Location: index.php?c=IniciarSesion&a=Inicio");
+            header("Location: /RUPE/index.php?c=IniciarSesion&a=Inicio");
             exit();
         }
         //Para evitar regresar a la sesión
@@ -30,12 +30,17 @@ class PerfiladministradorControlador {
         $perfil = $this->modelo->obtenerPerfil($correo);    
         
         if ($perfil) {
-            require_once __DIR__ . "/../vistas/inicio/encabezadoadmon.php";
-            require_once __DIR__ . "/../vistas/perfil/administrador.php"; // Vista exclusiva de Admin
-            require_once __DIR__ . "/../vistas/inicio/pie.php";
+            require_once __DIR__ . "/../../vistas/inicio/encabezadoadmon.php";
+            require_once __DIR__ . "/../../vistas/perfil/administrador.php"; // Vista exclusiva de Admin
+            require_once __DIR__ . "/../../vistas/inicio/pie.php";
         } else {
            
-            echo "Error al obtener el perfil del usuario.";
+            header("Location: /RUPE/controladores/administrador/personaladmin.php");
+            exit();
         }
     }
+}
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'perfiladministrador.php') {
+    $ctrl = new PerfiladministradorControlador();
+    $ctrl->Inicio();
 }

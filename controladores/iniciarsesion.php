@@ -75,6 +75,11 @@ class IniciarSesionControlador
             //validar credenciales
             $usuario = $this->modelo->iniciarSesion($correo, $contrasena);
 
+            if($usuario && !empty($usuario['cuenta_inactiva'])){
+                $this->recargarLogin("Esta cuenta no esta activa. Deber registrarse");
+                return;
+            }
+
             if ($usuario) {
                 //Para inicio de sesión correcto
                 if (session_status() === PHP_SESSION_NONE) {
@@ -117,7 +122,7 @@ class IniciarSesionControlador
                         exit();
                     } else{
                         //Si es su primer ingreso va directo al formulario
-                        header("Location: /RUPE/controladores/personaladmin.php");
+                        header("Location: /RUPE/controladores/administrador/personaladmin.php");
                         exit();
                     }
                     
@@ -135,9 +140,9 @@ class IniciarSesionControlador
     }
     private function recargarLogin($error)
     {
-        require_once "vistas/inicio/encabezado.php";
-        require_once "vistas/formularios/iniciarsesion.php";
-        require_once "vistas/inicio/pie.php";
+        require_once __DIR__ . "/../vistas/inicio/encabezado.php";
+        require_once __DIR__ . "/../vistas/formularios/iniciarsesion.php";
+        require_once __DIR__ . "/../vistas/inicio/pie.php";
     }
 }
 

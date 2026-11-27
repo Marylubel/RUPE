@@ -52,10 +52,22 @@ class Cuentausu
     public function eliminarCuentaLogica($id_usuario)
     {
         try {
-            $sql = "UPDATE usuarios SET estatus = 0 WHERE id_usuario = :id_usuario";
-            $stmt = $this->pdo->prepare($sql);
-            return $stmt->execute([':id_usuario' => $id_usuario]);
+            $this->pdo->beginTransaction();
+
+            $stmt = $this->pdo->prepare("UPDATE usuarios SET estatus = 0 WHERE id_usuario = :id");
+            $stmt->execute([':id' => $id_usuario]);
+
+            $stmt = $this->pdo->prepare("UPDATE perfiles_personal SET estatus = 0 WHERE id_usuario = :id");
+            $stmt->execute([':id' => $id_usuario]);
+            //$sql = "UPDATE usuarios SET estatus = 0 WHERE id_usuario = :id_usuario";
+            //$stmt = 
+            $this->pdo->commit();
+            return true; 
+            //$stmt->execute([':id_usuario' => $id_usuario]);
         } catch (PDOException $e) {
+            if ($this->pdo->inTransaction()){
+                $this->pdo->rollBack();
+            }
             return false;
         }
     }

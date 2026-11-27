@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once __DIR__ . "/../modelos/personal.php";
+require_once __DIR__ . "/../../modelos/personal.php";
 
 class PersonaladminControlador
 {
@@ -17,6 +17,11 @@ class PersonaladminControlador
 
     public function Inicio()
     {
+        //Evita que con el botón "Atrás" muestre datos tras cerrar sesión)
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        
         if(!isset($_SESSION['id_usuario']) || ($_SESSION['id_roles'] !=1 && $_SESSION['id_roles'] !== 'administrador')){
             header("Location: /RUPE/index.php?c=iniciarsesion&a=Inicio");
             exit();
@@ -33,9 +38,9 @@ class PersonaladminControlador
         $perfil = $this->modelo->obtenerDatosPerfil($_SESSION['id_usuario']);
         //$perfil = isset($_SESSION['id_usuario']) ? $this->modelo->obtenerDatosPerfil($_SESSION['id_usuario']) : null;
 
-        require_once __DIR__ . "/../vistas/inicio/encabezadoadmon.php";
-        require_once __DIR__ . "/../vistas/administrador/personal.php";
-        require_once __DIR__ . "/../vistas/inicio/pie.php";
+        require_once __DIR__ . "/../../vistas/inicio/encabezadoadmon.php";
+        require_once __DIR__ . "/../../vistas/administrador/personal.php";
+        require_once __DIR__ . "/../../vistas/inicio/pie.php";
     }
     // Gestiona las respuestas JSON 
     public function procesarPeticionesAjax()

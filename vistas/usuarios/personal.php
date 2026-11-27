@@ -1,8 +1,6 @@
-<title>Perfil Administrador</title>
+<title>Perfil Usuario</title>
 
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
-
-
 
 <!-- Bootstrap core CSS -->
 <link href="/RUPE/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -199,7 +197,6 @@
                 <?php endif; ?>
               </select>
             </div>
-
           </div>
 
           <div class="row g-2 my-1">
@@ -283,19 +280,7 @@
             const option = document.createElement('option');
             option.value = m.id;
             option.textContent = m.nombre;
-            selectAlcaldia.appendChild(option);
-            //if (
-            //m.nombre.normalize("NFD")
-            //.replace(/[\u0300-\u036f]/g, "")
-            //.trim()
-            //.toUpperCase() ===
-            //alcaldiaNombreTarget.normalize("NFD")
-            //.replace(/[\u0300-\u036f]/g, "")
-            //.trim()
-            //.toUpperCase()
-            //) {
-            //option.selected = true;
-            //}
+            selectAlcaldia.appendChild(option);            
           });
           selectAlcaldia.disabled = false;
         }
@@ -471,218 +456,3 @@
     document.getElementById('estado').disabled = false;
   });
 </script>
-<!-- 
-
-  //El código postal se consulta de la tabla sepomex
-  //document.getElementById('codigo').addEventListener('input', function(e) {
-  //  const cp = e.target.value;
-  //  const selectColonia = document.getElementById('colonia_nombre');
-  //  const selectEstado = document.getElementById('estado');
-  //  const selectAlcaldia = document.getElementById('alcaldia');
-  //  const errorDiv = document.getElementById('codigoError');
-
-  //selectColonia.innerHTML = '<option value="">Cargando...</option>';
-  //selectColonia.disabled = true;
-  //if (errorDiv) {
-  //  errorDiv.style.display = 'none';
-  //  errorDiv.textContent = '';
-  //}
-
-  //  if (cp.length === 5 && /^\d+$/.test(cp)) {
-  //  selectColonia.innerHTML = '<option value='
-  // fetch(`/RUPE/controladores/personalusu.php?action=getColoniasPorCP&cp=${cp}`)
-  //  .then(response => response.json())
-  // .then(data => {
-  //  if (Array.isArray(data) && data.length > 0) {
-  //  const primerRegistro = data[0]; // Tomamos el primer resultado
-  // const nombreEstado = primerRegistro.nombre_edo ? primerRegistro.nombre_edo.trim() : "";
-
-  // Restricción estricta: solo CDMX y Estado de México
-  // if (nombreEstado !== "Ciudad de México" && nombreEstado !== "México") {
-  //   mostrarError('El proyecto RUPE solo opera en CDMX y Estado de México.');
-  //   bloquearControles();
-  //   return;
-  // }
-
-  // Autoseleccionar y fijar Estado (sin disabled para que se envíe por POST)
-  // selectEstado.value = primerRegistro.id_estado;
-  // selectEstado.disabled = false;
-  // selectEstado.style.pointerEvents = "none";
-  // selectEstado.style.backgroundColor = "#e9ecef";
-
-  // Cargar y fijar Alcaldía correspondiente
-  // const estadoId = primerRegistro.id_estado;
-  // const alcaldiaIdTarget = primerRegistro.id_alcaldia;
-
-  // fetch(`/RUPE/controladores/personalusu.php?action=getMunicipios&estado_id=${estadoId}`)
-  //  .then(res => res.json())
-  // .then(municipios => {
-  //   selectAlcaldia.innerHTML = '<option value="" selected disabled>Seleccione...</option>';
-  //   if (Array.isArray(municipios) && municipios.length > 0) {
-  //    municipios.forEach(m => {
-  //     const option = document.createElement('option');
-  //    option.value = m.id;
-  //   option.textContent = m.nombre;
-  //  selectAlcaldia.appendChild(option);
-  //});
-  //selectAlcaldia.value = alcaldiaIdTarget;
-  //selectAlcaldia.disabled = false;
-  //selectAlcaldia.style.pointerEvents = "none";
-  //selectAlcaldia.style.backgroundColor = "#e9ecef";
-  //}
-  //});
-
-  // Llenar las colonias
-  //selectColonia.innerHTML = '<option value="" selected disabled>Seleccione una colonia...</option>';
-  //data.forEach(registro => {
-  //const option = document.createElement('option');
-  //option.value = registro.nombre_col;
-  //option.textContent = registro.nombre_col;
-  //selectColonia.appendChild(option);
-  //});
-  //selectColonia.disabled = false;
-
-  //} else {
-  //mostrarError('Código Postal no encontrado en la zona de cobertura.');
-  //bloquearControles();
-  //}
-  //})
-  //.catch(err => {
-  // mostrarError('Error al conectar con la base de datos.');
-  //console.error(err);
-  //});
-  //} else {
-  /// Restaurar controles si borra el CP
-  //selectEstado.disabled = false;
-  //selectEstado.style.pointerEvents = "";
-  //selectEstado.style.backgroundColor = "";
-  //selectEstado.value = "";
-  //selectAlcaldia.innerHTML = '<option value="" selected disabled>Seleccione...</option>';
-  //selectAlcaldia.disabled = true;
-  //selectAlcaldia.style.pointerEvents = "";
-  //selectAlcaldia.style.backgroundColor = "";
-  //selectColonia.innerHTML = '<option value="" selected disabled>Primero Codigo Postal...</option>';
-  //}
- 
-  //Para controlar el boton guardar, no se active si no se detecta llenado de campos
-  //document.addEventListener('DOMContentLoaded', function() {
-  //  const formulario = document.querySelector('form.needs-validation');
-  //  const btnGuardar = document.getElementById('btnGuardar');
-  //  const campos = formulario.querySelectorAll('input, select, textarea');
-
-  // const valoresIniciales = {};
-  // campos.forEach((campo, index) => {
-  //  if (campo.type !== 'submit' && campo.type !== 'button' && campo.type !== 'file') {
-  //    const clave = campo.name || campo.id || `campo_${index}`;
-  //    valoresIniciales[clave] = campo.value.trim();
-  //  }
-  //});
-
-  //function huboCambiosReales() {
-  //for (let i = 0; i < campos.length; i++) {
-  // const campo = campos[i];
-  //if (campo.type === 'submit' || campo.type === 'button' || campo.type === 'hidden') continue;
-  //if (campo.type === 'file' && campo.files.length > 0) return true;
-  //if (campo.type !== 'file') {
-  //  const clave = campo.name || campo.id || `campo_${i}`;
-  //  if (campo.value.trim() !== valoresIniciales[clave]) return true;
-  // }
-  //}
-  //return false;
-  //}
-
-  //function actualizarEstadoBoton() {
-  // if (btnGuardar) btnGuardar.disabled = !huboCambiosReales();
-  //}
-
-  //formulario.addEventListener('input', actualizarEstadoBoton);
-  //formulario.addEventListener('change', actualizarEstadoBoton);
-  //formulario.addEventListener('submit', function(e) {
-  //if (!huboCambiosReales()) {
-  //  e.preventDefault();
-  // e.stopPropagation();
-  // }
-  //});
-
-  //actualizarEstadoBoton()
-
-
-
-
- const urlBase = '/RUPE/controladores/personaladmin.php';
-
-  function cargarMunicipios() {
-    const estadoId = document.getElementById('estado').value;
-    const alcaldiaSelect = document.getElementById('alcaldia');
-
-    resetSelect(alcaldiaSelect, '-- Selecciona Alcaldía/Mpio --');
-    resetSelect(document.getElementById('codigo'), '-- Selecciona Mpio --');
-    resetSelect(document.getElementById('colonia'), '-- Selecciona CP --');
-
-    if (!estadoId) return;
-
-    fetch(`${urlBase}?action=getMunicipios&estado_id=${estadoId}`)
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(m => fillOption(alcaldiaSelect, m.id, m.nombre));
-        alcaldiaSelect.disabled = false;
-      });
-    .catch(error => console.error('Error al cargar municipios:', error));
-  }
-
-  function cargarCP() {
-    const municipioId = document.getElementById('alcaldia').value;
-    const cpSelect = document.getElementById('codigo');
-
-    resetSelect(cpSelect, '-- Selecciona Código Postal --');
-    resetSelect(document.getElementById('colonia'), '-- Selecciona CP --');
-
-    if (!municipioId) return;
-
-    fetch(`${urlBase}?action=getCP&municipio_id=${municipioId}`)
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(cp => fillOption(cpSelect, cp.id, cp.codigo));
-        cpSelect.disabled = false;
-      });
-    .catch(error => console.error('Error al cargar códigos postales:', error));
-  }
-
-  function cargarColonias() {
-    const cpId = document.getElementById('codigo').value;
-    const coloniaSelect = document.getElementById('colonia');
-
-    resetSelect(coloniaSelect, '-- Selecciona Colonia --');
-
-    if (!cpId) return;
-
-    fetch(`${urlBase}?action=getColonias&codigo_id=${cpId}`)
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(col => fillOption(coloniaSelect, col.id, col.nombre));
-        coloniaSelect.disabled = false;
-      });
-    .catch(error => console.error('Error al cargar colonias:', error));
-  }
-
-  function resetSelect(element, defaultText) {
-    element.innerHTML = `<option value="" selected disabled>${defaultText}</option>`;
-    element.disabled = true;
-  }
-
-  function fillOption(element, id, text) {
-    const opt = document.createElement('option');
-    opt.value = id;
-    opt.textContent = text;
-    element.appendChild(opt);
-  }
-
-  function visualizarFoto(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('img-visualizacion').src = e.target.result;
-      }
-      reader.readAsDataURL(input.files[0]);
-    }
-  } -->

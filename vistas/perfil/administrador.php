@@ -2,7 +2,7 @@
 
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
-<link href="RUPE/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="/RUPE/assets/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
     .bd-placeholder-img {
@@ -55,12 +55,14 @@
                                                                 ?? 'Administrador'
                                                         ); ?></p>
                                 <div class="d-grid gap-2 d-md-block">
-                                    <a href="/RUPE/controladores/personaladmin.php" class="btn btn-outline-secondary btn-sm mb-1">Ver/Editar</a>
-                                    <button class="btn btn-outline-secondary btn-sm mb-1" type="button">Cambiar contraseña</button>
+                                    <a href="/RUPE/controladores/administrador/personaladmin.php" class="btn btn-outline-secondary btn-sm mb-1">Ver/Editar</a>
+                                    <a href="/RUPE/controladores/usuarios/cuentasusu.php" class="btn btn-outline-secondary btn-sm mb-1">Cambiar contraseña</a>                                    
                                     <!-- Se inserta un boton que envie un modal para confirmar la eliminación -->
-                                    <button type="button" class="btn btn-outline-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalEliminarAdmin">
-                                        Eliminar
-                                    </button>
+                                    <a href="/RUPE/controladores/usuarios/cuentasusu.php?accion=eliminar"
+                                        class="btn btn-outline-danger btn-sm mb-1"
+                                        onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción desactivará tu acceso al sistema.');">
+                                        Eliminar cuenta
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +151,7 @@
         <h5 class="modal-title" id="modalEliminarAdminLabel">Autorización Requerida</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
-      <form action="/RUPE/controladores/personaladmin.php?accion=eliminar" method="POST">
+      <form action="/RUPE/controladores/usuarios/cuentasusu.php?accion=eliminar" method="POST">
         <div class="modal-body">
           <p class="mb-3">¿Está seguro de que desea desactivar sus datos personales de administrador? Podrá volver a capturarlos cuando lo desee.</p>
           <div class="mb-2">

@@ -48,8 +48,12 @@
                             <button type="submit" class="btn fw-bold shadow-sm" style="background-color: #75B0D7;">
                                 Guardar Nueva Contraseña
                             </button>
-                            <a href="/RUPE/index.php?c=perfilusuario&a=Inicio" class="btn btn-outline-secondary fw-bold">
-                                Cancelar y Regresar
+                            <?php
+                            $urlPerfil = (!empty($_SESSION['id_roles']) && ($_SESSION['id_roles'] == 1 || $_SESSION['id_roles'] === 'administrador'))
+                            ? '/RUPE/index.php?c=perfiladministrador&a=Inicio'
+                            : '/RUPE/index.php?c=perfilusuarios&a=Inicio';
+                            ?>
+                            <a href="<?= $urlPerfil ?>" class="btn btn-outline-secondary fw-bold">Cancelar y Regresar
                             </a>
                         </div>
                     </form>

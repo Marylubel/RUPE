@@ -1,18 +1,23 @@
 <?php
 
-class IniciarSesion {
+class IniciarSesion
+{
     private $pdo;
     //private $usuarios;
 
-    public function __construct() { //metodo para ingresar a las tablas de la base de datos
+    public function __construct()
+    { //metodo para ingresar a las tablas de la base de datos
         $this->pdo = BasedeDatos::conectar();
         //$this->usuarios = $this->pdo->query("SELECT * FROM usuarios")->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function iniciarSesion($correo, $contrasena) {
+    public function iniciarSesion($correo, $contrasena)
+    {
         try {
             // Se prepara la consulta SQL para verificar el correo y la contraseña
-            $sql = "SELECT id_usuario, id_roles, correo_electronico, contrasena FROM usuarios WHERE correo_electronico = :correo";
+            $sql = "SELECT id_usuario, id_roles, correo_electronico, contrasena, estatus 
+            FROM usuarios WHERE correo_electronico = :correo 
+            LIMIT 1";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':correo', $correo);
             $stmt->execute();
@@ -20,12 +25,15 @@ class IniciarSesion {
 
             //revisar que existe usuario y contraseña
             if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
-                unset($usuario['contrasena']);
-                return $usuario;          
-            } else {
-                // Credenciales incorrectas
-                return false;
+                //Se valida la contraseña pero se revisa el estatus
+                if (isset($usuario['estatus']) && (int)$usuario['estatus'] === 0) {
+                    return ['cuenta_inactiva' => true];
+                }
+                //unset($usuario['contrasena']);
+                return $usuario;
             }
+            // Credenciales incorrectas
+            return false;
         } catch (PDOException $e) {
             // Registrar logs
             error_log("Error al iniciar sesión:" . $e->getMessage());

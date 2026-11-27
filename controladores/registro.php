@@ -52,7 +52,7 @@ class RegistroControlador {
             $CONTRASENA_ADMIN_REQUERIDA = "Responsable2026"; //contraseña para validar al administrador
 
             if ($confirmacion_admin !== $CONTRASENA_ADMIN_REQUERIDA) {
-                echo "Error: La contraseña de confirmación para el rol Administrador es incorrecta.";
+                echo "<script>alert('Error: La contraseña de confirmación para el rol Administrador es incorrecta.'); window.history.back();</script>";
                 return; 
             }
             $id_roles = '1'; //rol Administrador asignada
