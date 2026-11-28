@@ -14,3 +14,25 @@
 </body>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Selecciona todos los inputs de texto y textareas (excluyendo correos, contraseñas, CURP y códigos)
+        const camposTexto = document.querySelectorAll(
+            'input[type="text"]:not([name="curp"]):not([name="numint"]):not([name="numext"]):not([name="codigo_postal"]), textarea'
+        );
+
+        camposTexto.forEach(campo => {
+            campo.addEventListener("blur", function () {
+                if (this.value.trim() !== "") {
+                    // Convierte cada palabra a Inicial Mayúscula y el resto en minúscula (respetando acentos y ñ)
+                    this.value = this.value
+                        .trim()
+                        .toLocaleLowerCase('es-MX')
+                        .replace(/(^|\s)([a-záéíóúüñ])/g, function (match, espacio, letra) {
+                            return espacio + letra.toLocaleUpperCase('es-MX');
+                        });
+                }
+            });
+        });
+    });
+</script>

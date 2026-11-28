@@ -158,11 +158,26 @@
             </div>
 
             <div class="col-md-5">
-              <label for="colonia_nombre" class="form-label">Colonia</label>
-              <select id="colonia_nombre" name="colonia_nombre" class="form-select" data-colonia="<?= htmlspecialchars($perfil['nombre_col'] ?? '') ?>" disabled onchange="autocompletarCP()">
-                <option value="" selected disabled>Codigo Postal primero o Alcaldia...</option>
-              </select>
-            </div>
+    <label for="colonia_nombre" class="form-label">Colonia</label>
+    <select id="colonia_nombre" name="colonia_nombre" class="form-select" 
+            data-colonia="<?= htmlspecialchars($perfil['nombre_col'] ?? '') ?>" 
+            onchange="completarCPDesdeColonia()" 
+            <?= empty($listaColonias) ? 'disabled' : '' ?> required>
+        <option value="" disabled <?= empty($perfil['nombre_col']) ? 'selected' : '' ?>>
+            Código Postal primero o Alcaldía...
+        </option>
+        <?php if (!empty($listaColonias)): ?>
+            <?php foreach ($listaColonias as $col): ?>
+                <?php $selCol = (!empty($perfil['nombre_col']) && $perfil['nombre_col'] === $col['nombre_col']) ? 'selected' : ''; ?>
+                <option value="<?= htmlspecialchars($col['nombre_col']) ?>" 
+                        data-cp="<?= htmlspecialchars($col['codigo_postal'] ?? '') ?>" 
+                        <?= $selCol ?>>
+                    <?= htmlspecialchars($col['nombre_col']) ?>
+                </option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
+</div>
 
             <div class="col-md-5">
               <label for="alcaldia" class="form-label">Alcaldía/Mpio</label>
@@ -193,7 +208,7 @@
               <button id="btnGuardar" class="w-100 btn btn-lg fw-bold shadow-sm" style="background-color: #75b0d7;" type="submit">Guardar</button>
             </div>
             <div class="col-md-6">
-              <a href="/RUPE/index.php?c=perfilusuario&a=Inicio" class="btn btn-lg w-100 py-2 fw-bold shadow-sm" style="background-color: #75b0d7;" >Regresar</a>
+              <a href="/RUPE/index.php?c=perfiladministrador&a=Inicio" class="btn btn-lg w-100 py-2 fw-bold shadow-sm" style="background-color: #75b0d7;" >Regresar</a>
             </div>
 
       </form>
@@ -306,6 +321,19 @@
       })
       .catch(err => console.error('Error al cargar colonias:', err));
   }
+  function completarCPDesdeColonia() {
+    const selectCol = document.getElementById('colonia_nombre');
+    const opcionSel = selectCol.options[selectCol.selectedIndex];
+    const cp = opcionSel ? (opcionSel.dataset.cp || '') : '';
+
+    if (cp !== '') {
+        const inputCP = document.getElementById('codigo_postal'); // Verifica si tu input CP tiene id="codigo_postal" o id="cp"
+        if (inputCP) {
+            inputCP.value = String(cp).padStart(5, '0');
+        }
+    }
+}
+
 
 //Para obtener el CP al elegir la Colonia
   function autocompletarCP() {

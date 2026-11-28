@@ -48,13 +48,13 @@
               <div>
                 <p class="text-center fw-bold fs-5 mb-3" style="color: #0f4264;">¿Se extravió tu mascota?</p>    
                 <p class="card-text text-muted" style="text-align: justify; line-height: 1.6;">
-                  Crea una cuenta en <strong>RUPE</strong> y levanta el reporte de extravío de tu mascota. Y obten una ficha de búsqueda 
+                  Crea una cuenta en <strong>RUPE</strong> y levanta el reporte de extravío de tu mascota. Obten una ficha de búsqueda 
                   con <strong>código QR</strong> y sin mostrar tus datos personales<br>
                   También puedes probar la aplicación sin crear una cuenta. Ingresa con el botón <strong>"Levantar reporte de extravío sin cuenta"</strong>
                 </p>
               </div>
               <div class="mt-4">
-                <a href="" class="btn w-100 fw-bold py-2 shadow-sm text-white" style="background-color:  #f72020;">Levantar Reporte de Extravío sin cuenta</a>
+                <a href="/RUPE/index.php?c=reporteinvitado&a=Inicio" class="btn w-100 fw-bold py-2 shadow-sm text-white" style="background-color:  #f72020;">Levantar Reporte de Extravío sin cuenta</a>
               </div>
             </div>
           </div>

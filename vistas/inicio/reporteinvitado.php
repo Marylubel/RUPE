@@ -1,7 +1,7 @@
 <main class="container py-3 mt-2">
     <section class="pt-1">
         <div class="col-lg-10 mx-auto">
-            <div class="p-3 mb-4 text-white rounded-3 shadow-sm" style="background-color: #6394b3;">
+            <div class="p-3 mb-4 text-black rounded-3 shadow-sm" style="background-color: #6394b3;">
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <div>
                         <h3 class="fw-bold mb-1">Reportar Mascota Extraviada (Sin Cuenta)</h3>
@@ -16,7 +16,7 @@
                 <!-- BLOQUE 1: DATOS DE LA MASCOTA -->
                 <div class="card border-0 shadow-sm rounded-3 mb-4">
                     <div class="card-header bg-white border-bottom py-2">
-                        <h5 class="fw-bold mb-0 text-primary">1. Datos de la Mascota</h5>
+                        <h5 class="fw-bold mb-0" style="color: #065688;">1. Datos de la Mascota</h5>
                     </div>
                     <div class="card-body p-4">
                         <div class="row g-3 mb-3">
@@ -71,7 +71,7 @@
                                     <option value="Chico">Chico</option>
                                     <option value="Mediano">Mediano</option>
                                     <option value="Grande">Grande</option>
-                                    <option value="Gigante">Gigante</option>
+                                    
                                 </select>
                             </div>
                         </div>

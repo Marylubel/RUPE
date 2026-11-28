@@ -237,9 +237,7 @@ class Personal
             
         } catch (PDOException $e) {
             if(isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062){
-                echo "<script> alert('La CURP ya se encuentra registrada en el sistema. 
-                Verifique e ingrese la CURP correcta.');
-                if (window.history.length > 1){
+                echo "<script>alert('La CURP ya se encuentra registrada en el sistema. Verifique e ingrese la CURP correcta.'); if (window.history.length > 1){
                 window.history.back();
                 }else{
                     window.location.href = '/RUPE/controladores/personalusu.php';

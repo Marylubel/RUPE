@@ -37,6 +37,15 @@ class PersonaladminControlador
         //Se recuperan los datos del perfil del usuario para mostrarlos en la vista.        
         $perfil = $this->modelo->obtenerDatosPerfil($_SESSION['id_usuario']);
         //$perfil = isset($_SESSION['id_usuario']) ? $this->modelo->obtenerDatosPerfil($_SESSION['id_usuario']) : null;
+        $listaMunicipios = [];
+        $listaColonias = [];
+
+        if (!empty($perfil['id_estado'])){
+            $listaMunicipios = $this->modelo->obtenerMunicipiosPorEstado($perfil['id_estado']) ?? [];
+        }
+        if (!empty($perfil['alcaldia_mpio'])){
+            $listaColonias = $this->modelo->obtenerColoniasPorAlcaldias($perfil['alcaldia_mpio']) ?? [];
+        }
 
         require_once __DIR__ . "/../../vistas/inicio/encabezadoadmon.php";
         require_once __DIR__ . "/../../vistas/administrador/personal.php";
@@ -65,11 +74,6 @@ class PersonaladminControlador
 
     public function editar()
     {
-        //Evita que con el botón "Atrás" muestre datos tras cerrar sesión)
-        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-        header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");   
-    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_usuario = $_SESSION['id_usuario'] ?? null; 
             if (!$id_usuario || ($_SESSION['id_roles'] !=1 && $_SESSION['id_roles'] !== 'administrador')){

@@ -43,8 +43,8 @@ class Registro
             }
 
             //Insertar datos tabla usuarios
-            $sqlUsuario = "INSERT INTO usuarios (correo_electronico, contrasena, id_roles, creado) 
-            VALUES (:correo, :contrasena, :roles, :creado)";
+            $sqlUsuario = "INSERT INTO usuarios (correo_electronico, contrasena, id_roles, creado, estatus) 
+            VALUES (:correo, :contrasena, :id_roles, :creado, 1)";
             $stmtUsuario = $this->pdo->prepare($sqlUsuario);
             
             return $stmtUsuario->execute([

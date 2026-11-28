@@ -1,86 +1,16 @@
- <script>
-     document.addEventListener("DOMContentLoaded", function() {
-         //Obtener elementos de la vista
-         const form = document.getElementById("formRegistro");
-         const selectRol = document.getElementById("seleccionrol");
-         const contrasenaAdminOculta = document.getElementById("contrasena_admin");
-         const msgError = document.getElementById("msgError");
-         const modalElement = document.getElementById('modalAdmin');
-         const btnConfirmarAdmin = document.getElementById("btnConfirmarAdmin");
-         const tokenAdminInput = document.getElementById("tokenAdminInput");
-         let bypassModal = false;
-
-         //Utilizar archivo local de laragon para bootstrap
-         const modalAdmin = new bootstrap.Modal(modalElement);
-
-         form.addEventListener("submit", function(e) {
-             msgError.style.display = "none";
-
-             const correo = document.getElementById("correo").value.trim();
-             const pass = document.getElementById("contrasena").value;
-             const confirmPass = document.getElementById("confirmar_contrasena").value;
-
-             // 1. Validar Correo Estricto (Evita h@h)
-             const regexCorreoEstricto = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-             if (!regexCorreoEstricto.test(correo)) {
-                 e.preventDefault();
-                 msgError.textContent = "Ingrese correo electrónico válido (ejemplo: usuario@dominio.com).";
-                 msgError.style.display = "block";
-                 return;
-             }
-
-             // 2. Validar Contraseña Alfanumérica (Mínimo 8 caracteres)
-             const regexAlfanumerica = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-             if (!regexAlfanumerica.test(pass)) {
-                 e.preventDefault();
-                 msgError.textContent = "La contraseña debe contener letras y números, con un mínimo de 8 caracteres.";
-                 msgError.style.display = "block";
-                 return;
-             }
-
-             // 3. Confirmar que ambas contraseñas coincidan
-             if (pass !== confirmPass) {
-                 e.preventDefault();
-                 msgError.textContent = "Las contraseñas no coinciden.";
-                 msgError.style.display = "block";
-                 return;
-             }
-
-             // 4. Abrir ventana emergente si es Administrador
-             if (selectRol.value === "administrador" && !bypassModal) {
-                 e.preventDefault();
-                 tokenAdminInput.value = "";
-                 document.getElementById("errorModal").style.display = "none";
-                 modalAdmin.show();
-             }
-         });
-
-         // Acción del botón interno del Modal
-         btnConfirmarAdmin.addEventListener("click", function() {
-             if (tokenAdminInput.value.trim() === "") {
-                 document.getElementById("errorModal").style.display = "block";
-             } else {
-                 contrasenaAdminOculta.value = tokenAdminInput.value;
-                 bypassModal = true; // Permite que el próximo submit ignore este bloque
-                 modalAdmin.hide();
-                 form.submit(); // Envío manual final
-             }
-         });
-     });
- </script>
-
+ 
  <div class="container my-2">
      <div class="card shadow-lg p-2 mx-auto" style="max-width: 900px;">
-         <h1 class="text-center mb-2 fw-bold" style="color: #0F4264;">RUPE</h1>
+         <h1 class="text-center mb-1 fw-bold" style="color: #0F4264;">RUPE</h1>
          <h3 class="h5 text-muted mb-4 text-center">Registro de Usuarios</h3>
 
-         <form id="formRegistro" action="index.php?c=registro&a=RegistrarUsuario" method="POST">
+         <form id="formRegistro" action="index.php?c=registro&a=RegistrarUsuario" method="POST" >
              <div class="row g-5 align-items-center">
                  <div class="col-md-3 text-center d-flex align-items-center justify-content-center">
                      <img src="assets/imagenes/collageperros.jpg" alt="Collage Perros" class="img-fluid rounded shadow-sm w-100" style="object-fit: cover; max-height: 390px;">
                  </div>
                  <div class="col-md-8">
-                     <div class="mb-2">
+                     <div class="mb-1">
                          <label class="form-label fw-semibold">Correo Electrónico</label>
                          <input type="email" id="correo" name="correo" class="form-control" placeholder="ejemplo@correo.com" required>
                      </div>
@@ -107,21 +37,41 @@
                      <!-- mostrar el campo de contraseña de administrador si se selecciona el rol de administrador-->
                      <input type="hidden" name="contrasena_admin" id="contrasena_admin">
 
+
                      <!-- Contenedor para mostrar mensajes de error dinámicos -->
                      <div id="msgError" class="alert alert-danger p-2 small my-3" style="display:none;">
-                 </div>
-                 <div class="row g-3">
-                     <div class="col-6">
-                         <button type="submit" class="btn w-100 py-2 fw-bold shadow-sm" style="background-color: #75B0D7;">Registrar Usuario</button>
                      </div>
-                     <div class="col-6">
-                         <a href="index.php?c=inicio" class="btn btn-outline-secondary w-100 py-2 fw-bold shadow-sm">Regresar</a>
+                     <div class="mb-3 d-flex justify-content-center">
+                         <div class="border rounded bg-light px-3 py-2 d-flex align-items-center justify-content-between shadow-sm" style="width: 304px; height: 74px;">
+                             <div class="form-check d-flex align-items-center gap-2 mb-0">
+                                 <input class="form-check-input border-secondary" type="checkbox" id="checkRobotRegistro"
+                                     style="width: 24px; height: 24px; cursor: pointer;"
+                                     onchange="document.getElementById('tokenCaptchaRegistro').value = this.checked ? 'TOKEN_LOCAL_DE_PRUEBAS' : '';">
+                                 <label class="form-check-label fw-semibold text-dark ms-1" for="checkRobotRegistro" style="cursor: pointer;">
+                                     No soy un robot
+                                 </label>
+                             </div>
+                             <div class="text-center text-muted" style="font-size: 0.65rem; line-height: 1.15;">
+                                 <i class="bi bi-shield-check fs-4 text-primary d-block"></i>
+                                 reCAPTCHA<br>Seguridad RUPE
+                             </div>
+                         </div>
+                         <input type="hidden" id="tokenCaptchaRegistro" name="g-recaptcha-response" value="">
+                     </div>
+
+
+                     <div class="row g-3">
+                         <div class="col-6">
+                             <button type="submit" class="btn w-100 py-2 fw-bold shadow-sm" style="background-color: #75B0D7;">Registrar Usuario</button>
+                         </div>
+                         <div class="col-6">
+                             <a href="index.php?c=inicio" class="btn btn-outline-secondary w-100 py-2 fw-bold shadow-sm">Regresar</a>
+                         </div>
                      </div>
                  </div>
              </div>
+         </form>
      </div>
-     </form>
- </div>
  </div>
  <!-- VENTANA EMERGENTE PARA EL ADMINISTRADOR -->
  <div class="modal fade" id="modalAdmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -145,3 +95,89 @@
          </div>
      </div>
  </div>
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form                  = document.getElementById("formRegistro");
+        const selectRol             = document.getElementById("seleccionrol");
+        const contrasenaAdminOculta = document.getElementById("contrasena_admin");
+        const msgError              = document.getElementById("msgError");
+        const modalElement          = document.getElementById('modalAdmin');
+        const btnConfirmarAdmin     = document.getElementById("btnConfirmarAdmin");
+        const tokenAdminInput       = document.getElementById("tokenAdminInput");
+        const checkRobot            = document.getElementById("checkRobotRegistro");
+        const tokenCaptcha          = document.getElementById("tokenCaptchaRegistro");
+        let bypassModal             = false;
+
+        const modalAdmin = new bootstrap.Modal(modalElement);
+
+        function sincronizarCaptcha() {
+            if (checkRobot && tokenCaptcha) {
+                tokenCaptcha.value = checkRobot.checked ? "TOKEN_LOCAL_DE_PRUEBAS" : "";
+            }
+        }
+
+        form.addEventListener("submit", function(e) {
+            msgError.style.display = "none";
+            sincronizarCaptcha();
+
+            const correo      = document.getElementById("correo").value.trim();
+            const pass        = document.getElementById("contrasena").value;
+            const confirmPass = document.getElementById("confirmar_contrasena").value;
+
+            // 1. Validar Correo Estricto
+            const regexCorreoEstricto = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!regexCorreoEstricto.test(correo)) {
+                e.preventDefault();
+                msgError.textContent = "Ingrese correo electrónico válido (ejemplo: usuario@dominio.com).";
+                msgError.style.display = "block";
+                return;
+            }
+
+            // 2. Validar Contraseña Alfanumérica (Mínimo 8 caracteres)
+            const regexAlfanumerica = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            if (!regexAlfanumerica.test(pass)) {
+                e.preventDefault();
+                msgError.textContent = "La contraseña debe contener letras y números, con un mínimo de 8 caracteres.";
+                msgError.style.display = "block";
+                return;
+            }
+
+            // 3. Confirmar que ambas contraseñas coincidan
+            if (pass !== confirmPass) {
+                e.preventDefault();
+                msgError.textContent = "Las contraseñas no coinciden.";
+                msgError.style.display = "block";
+                return;
+            }
+
+            // 4. Validar Captcha en el navegador
+            if (!checkRobot || !checkRobot.checked) {
+                e.preventDefault();
+                msgError.textContent = "Por favor, marque la casilla 'No soy un robot'.";
+                msgError.style.display = "block";
+                return;
+            }
+
+            // 5. Abrir ventana emergente si es Administrador
+            if (selectRol.value === "administrador" && !bypassModal) {
+                e.preventDefault();
+                tokenAdminInput.value = "";
+                document.getElementById("errorModal").style.display = "none";
+                modalAdmin.show();
+            }
+        });
+
+        // Acción del botón interno del Modal
+        btnConfirmarAdmin.addEventListener("click", function() {
+            if (tokenAdminInput.value.trim() === "") {
+                document.getElementById("errorModal").style.display = "block";
+            } else {
+                sincronizarCaptcha(); // Asegura que el token viaje al ejecutar form.submit()
+                contrasenaAdminOculta.value = tokenAdminInput.value;
+                bypassModal = true;
+                modalAdmin.hide();
+                form.submit();
+            }
+        });
+    });
+</script>

@@ -46,15 +46,15 @@
                             </div>
                             <!-- Información -->
                             <div class="col-sm-8">
-                                <h2>Datos personales</h2>
-                                <p class="text-muted"><?= htmlspecialchars(
+                                <h3>Registrar sus Datos personales</h3>                                
+                                <p class="fw-bold" style="color: #24668f;"><?= htmlspecialchars(
                                                             $_SESSION['usuario_nombre']
                                                                 ?? 'Usuario'
                                                         ); ?></p>
                                 <div class="d-grid gap-2 d-md-block">
-                                    <a href="/RUPE/controladores/usuarios/personalusu.php?accion=editar" class="btn btn-outline-secondary btn-sm mb-1">Ver/Editar</a>
+                                    <a href="/RUPE/controladores/usuarios/personalusu.php?accion=editar" class="btn btn-outline-secondary btn-sm mb-1">Ver/Editar sus datos</a>
                                     <a href="/RUPE/controladores/usuarios/personalusu.php?accion=eliminar" class="btn btn-outline-danger btn-sm mb-1"
-                                        onclick="return confirm('¿Estas seguro de que deseas eliminar tus datos.');">Eliminar</a>
+                                        onclick="return confirm('¿Estas seguro de que deseas eliminar tus datos.');">Borrar sus datos personales</a>
                                 </div>
                             </div>
                         </div>
@@ -73,11 +73,14 @@
                             </div>
                             <!-- Información -->
                             <div class="col-sm-8">
-                                <h2>Registro de Mascota</h2>
+                                <h4>Registrar los datos de su Mascota</h4>
+                                <div style="color: #24668f;">
+                                    <a>En este módulo registren a sus mascotas, actualicen sus datos </a>
+                                </div>
                                 <p class="text-muted"></p>
                                 <div class="d-grid gap-2 d-md-block">
-                                    <a href="/RUPE/controladores/usuarios/mascotausu.php?accion=guardar" class="btn btn-outline-secondary btn-sm mb-1">Registrar</a>
-                                    <a href="/RUPE/controladores/usuarios/mascotausu.php?accion=listar" class="btn btn-outline-secondary btn-sm mb-1">Ver/Modificar</a>
+                                    <a href="/RUPE/controladores/usuarios/mascotausu.php?accion=guardar" class="btn btn-outline-secondary btn-sm mb-1">Alta de Mascotas</a>
+                                    <a href="/RUPE/controladores/usuarios/mascotausu.php?accion=listar" class="btn btn-outline-secondary btn-sm mb-1">Mascotas Registradas</a>
 
                                 </div>
                             </div>
@@ -101,10 +104,14 @@
                             </div>
                             <!-- Información -->
                             <div class="col-sm-8">
-                                <h2>Reportes</h2>
+                                <h3>Levantar Reporte de Extravío</h3>
+                                <div style="color: #24668f;">
+                                    <a>En este módulo levanta reportes de extravío de tus mascotas y da seguimiento</a>
+                                </div>
+                                 <p class="text-muted"></p>
                                 <div class="d-grid gap-2 d-md-block">
-                                    <a href="/RUPE/controladores/usuarios/reportesusu.php?accion=guardar" class="btn btn-outline-secondary btn-sm mb-1">Registrar Extravío</a>
-                                    <a href="/RUPE/controladores/usuarios/reportesusu.php?accion=listar" class="btn btn-outline-secondary btn-sm mb-1">Ver/Seguimiento</a>
+                                    <a href="/RUPE/controladores/usuarios/reportesusu.php?accion=guardar" class="btn btn-outline-secondary btn-sm mb-1">Levantar Reporte Extravío</a>
+                                    <a href="/RUPE/controladores/usuarios/reportesusu.php?accion=listar" class="btn btn-outline-secondary btn-sm mb-1">Seguimiento Reporte Extravío</a>
 
                                 </div>
                             </div>

@@ -27,7 +27,7 @@ class ReporteinvitadoControlador
         $listaEstados    = $modelosPersonal->obtenerEstados() ?? [];
 
         require_once __DIR__ . "/../vistas/inicio/encabezado.php";
-        require_once __DIR__ . "/../vistas/inicio/reporte_invitado.php";
+        require_once __DIR__ . "/../vistas/inicio/reporteinvitado.php";
         require_once __DIR__ . "/../vistas/inicio/pie.php";
     }
 

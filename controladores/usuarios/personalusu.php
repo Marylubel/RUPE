@@ -37,6 +37,15 @@ class PersonalusuarioControlador
         $listaEstados = $this->modelo->obtenerEstados() ?? [];
         //Se recuperan los datos del perfil del usuario para mostrarlos en la vista.        
         $perfil = $this->modelo->obtenerDatosPerfil($_SESSION['id_usuario']);
+        $listaMunicipios = [];
+        $listaColonias = [];
+
+        if (!empty($perfil['id_estado'])){
+            $listaMunicipios = $this->modelo->obtenerMunicipiosPorEstado($perfil['id_estado']) ?? [];
+        }
+        if (!empty($perfil['alcaldia_mpio'])){
+            $listaColonias = $this->modelo->obtenerColoniasPorAlcaldias($perfil['alcaldia_mpio']) ?? [];
+        }
 
         require_once __DIR__ . "/../../vistas/inicio/encabezadoingreso.php";
         require_once __DIR__ . "/../../vistas/usuarios/personal.php";
